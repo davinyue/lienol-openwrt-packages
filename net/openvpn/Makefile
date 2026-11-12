@@ -9,14 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openvpn
 
-PKG_VERSION:=2.7.4
+PKG_VERSION:=2.7.8
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=\
 	https://build.openvpn.net/downloads/releases/ \
 	https://swupdate.openvpn.net/community/releases/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=18db05f3d5eee3663db1914590044e5f96ff5cd47b6e7846c6a350806c23dbce
+PKG_HASH:=c070d1d2440b5a6fca6c2c68645c98cd492116ac36ef4f0946177115532c8e36
 
 PKG_MAINTAINER:=
 
@@ -35,9 +35,15 @@ define Package/openvpn/Default
   CATEGORY:=Network
   URL:=http://openvpn.net
   SUBMENU:=VPN
-  MENU:=1
-  DEPENDS:=+kmod-tun +libcap-ng +OPENVPN_$(1)_ENABLE_LZO:liblzo +OPENVPN_$(1)_ENABLE_LZ4:liblz4 +OPENVPN_$(1)_ENABLE_IPROUTE2:ip \
-	+OPENVPN_$(1)_ENABLE_DCO:libnl-genl $(3)
+  MENU:=2
+  DEPENDS:=+kmod-tun \
+	   +libcap-ng \
+	   +OPENVPN_$(1)_ENABLE_LZO:liblzo \
+	   +OPENVPN_$(1)_ENABLE_LZ4:liblz4 \
+	   +OPENVPN_$(1)_ENABLE_IPROUTE2:ip \
+	   +OPENVPN_$(1)_ENABLE_DCO:libnl-genl \
+	   +OPENVPN_$(1)_ENABLE_DCO:kmod-ovpn-backports \
+	   $(3)
   VARIANT:=$(1)
   PROVIDES:=openvpn openvpn-crypto
 endef
